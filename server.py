@@ -3,7 +3,8 @@ import threading
 import datetime
 
 PORT = 5050
-SERVER = socket.gethostbyname(socket.gethostname()) # or ipconfig in terminal 
+SERVER = "192.168.1.4" 
+# print(SERVER) # or ipconfig in terminal 
 ADDR = (SERVER, PORT)
 HEADER = 64
 FORMAT = "utf-8"
