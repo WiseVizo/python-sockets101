@@ -39,9 +39,13 @@ def handle_client(con, addr, CHAT_DATA):
 
 def broadcast():
     print(f"[BroadCasting]: TO All...")
-    data = str(CHAT_DATA).encode(FORMAT)
-    for clients in CLIENTS:
-        clients.send(data)
+    message = str(CHAT_DATA).encode(FORMAT)
+    msg_length = len(message)
+    send_length = str(msg_length).encode(FORMAT)
+    send_length += b' '*(HEADER - len(send_length))
+    for client in CLIENTS:
+        client.send(send_length)
+        client.send(message)
 
 
 def start():
