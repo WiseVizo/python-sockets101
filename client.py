@@ -1,4 +1,5 @@
 import socket
+import threading
 
 PORT = 5050
 SERVER = socket.gethostbyname(socket.gethostname()) # or ipconfig in terminal 
@@ -9,6 +10,14 @@ DISCONNECT_MSG = "!Disconnect"
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
+
+def receive():
+    while True:        
+        message = client.recv(2090).decode(FORMAT)
+        print(message)
+
+receive_thread = threading.Thread(target=receive)
+receive_thread.start()
 
 def send(msg):
     message = msg.encode(FORMAT)
@@ -22,4 +31,5 @@ def send(msg):
 
 send("hii")
 input()
+send("helo")
 send(DISCONNECT_MSG)
